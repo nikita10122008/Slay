@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SLAVE 2025</title>
+
+<style>
+/* ========== CSS-переменные (CSS Custom Properties) ========== */
+:root {
+  --primary-bg: #0b0b0b;
+  --secondary-bg: #151515;
+  --accent-color: #ff5500;
+  --accent-light: #ff8c42;
+  --text-primary: #ffffff;
+  --text-secondary: #cccccc;
+  --card-shadow: 0 10px 20px rgba(255, 85, 0, 0.1);
+  --card-hover-shadow: 0 15px 30px rgba(255, 85, 0, 0.2);
+}
+
+/* ========== Сброс и базовые стили ========== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--primary-bg);
+    color: var(--text-primary);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+/* ========== HEADER с анимацией появления ========== */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(11, 11, 11, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    box-shadow: 0 5px 15px rgba(255, 85, 0, 0.1);
+    animation: slideDown 0.5s ease-out;
+}
+
+@keyframes slideDown {
+    from { transform: translateY(-100%); }
+    to { transform: translateY(0); }
+}
+
+.header {
+    max-width: 1200px;
+    margin: auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 28px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: var(--accent-color);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.logo::before {
+    content: "🏆";
+    font-size: 24px;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+}
+
+nav a {
+    color: var(--text-primary);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--accent-color);
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+nav a.active {
+    color: var(--accent-color);
+    background: rgba(255, 85, 0, 0.1);
+}
+
+nav a.active::after {
+    width: 100%;
+}
+
+/* ========== HERO SECTION с градиентной анимацией ========== */
+.hero {
+    height: 100vh;
+    background: linear-gradient(135deg, #0b0b0b 0%, #1a0f0a 50%, #0b0b0b 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255, 85, 0, 0.1) 0%, transparent 70%);
+    animation: pulse 15s infinite linear;
+}
+
+@keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(0.8); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(0.8); }
+}
+
+.hero-content {
+    max-width: 900px;
+    z-index: 2;
+    position: relative;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 1s ease-out 0.3s forwards;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero h1 {
+    font-size: 64px;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, #ff5500, #ff8c42);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.hero-subtitle {
+    font-size: 22px;
+    color: var(--accent-light);
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.hero p {
+    font-size: 18px;
+    opacity: 0.9;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(45deg, #ff5500, #ff8c42);
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 85, 0, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s;
+}
+
+.cta-button:hover::before {
+    left: 100%;
+}
+
+.cta-button:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(255, 85, 0, 0.5);
+}
+
+/* ========== АНИМАЦИЯ ПЕРЕХОДА МЕЖДУ СТРАНИЦАМИ ========== */
+.page-transition {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-color);
+    z-index: 9999;
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.6s cubic-bezier(0.77, 0, 0.175, 1);
+}
+
+.page-transition.active {
+    transform: scaleY(1);
+    transform-origin: top;
+}
+
+.page-transition.reverse {
+    transform-origin: top;
+}
+
+.page-transition.reverse.active {
+    transform: scaleY(1);
+    transform-origin: bottom;
+}
+
+/* ========== SECTIONS ========== */
+section {
+    padding: 120px 20px 80px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+h2 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 70px;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+h2::after {
+    content: '';
+    position: absolute;
+    width: 100px;
+    height: 4px;
+    background: var(--accent-color);
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 2px;
+}
+
+/* ========== NOMINATION ========== */
+.nomination-page {
+    min-height: 100vh;
+    padding-top: 100px;
+    display: none;
+    opacity: 0;
+}
+
+.nomination-page.active {
+    display: block;
+    animation: pageFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes pageFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.nomination-title {
+    font-size: 32px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: var(--accent-color);
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.nomination-title::after {
+    content: '';
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: var(--accent-light);
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* ========== PARTICIPANTS GRID с CSS Grid ========== */
+.participants {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    margin-top: 50px;
+}
+
+/* ========== CARD с 3D-эффектом при наведении ========== */
+.card {
+    background: var(--secondary-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--card-shadow);
+    position: relative;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.card:hover {
+    transform: translateY(-10px) rotateX(5deg);
+    box-shadow: var(--card-hover-shadow);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: linear-gradient(90deg, #ff5500, #ff8c42);
+    z-index: 3;
+}
+
+.card-image-container {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    position: relative;
+    background: #222;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.card:hover img {
+    transform: scale(1.1);
+}
+
+.card-content {
+    padding: 20px 15px;
+    background: rgba(21, 21, 21, 0.9);
+}
+
+.card h3 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+/* ========== КНОПКА ГОЛОСОВАНИЯ В TELEGRAM ========== */
+.vote-telegram-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 12px 25px;
+    background: linear-gradient(45deg, #0088cc, #00aced);
+    color: white;
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 136, 204, 0.3);
+    font-size: 15px;
+    margin-top: 10px;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.vote-telegram-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s;
+}
+
+.vote-telegram-btn:hover::before {
+    left: 100%;
+}
+
+.vote-telegram-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 136, 204, 0.4);
+}
+
+.tg-icon {
+    font-size: 18px;
+}
+
+/* ========== НАВИГАЦИЯ ПО НОМИНАЦИЯМ ========== */
+.nomination-nav {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 50px;
+    padding: 20px;
+    background: rgba(21, 21, 21, 0.8);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+}
+
+.nom-nav-btn {
+    padding: 12px 24px;
+    background: transparent;
+    border: 2px solid var(--accent-color);
+    color: var(--text-primary);
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nom-nav-btn::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 5px;
+    height: 5px;
+    background: rgba(255, 255, 255, 0.5);
+    opacity: 0;
+    border-radius: 100%;
+    transform: scale(1, 1) translate(-50%);
+    transform-origin: 50% 50%;
+}
+
+.nom-nav-btn:hover {
+    background: rgba(255, 85, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.nom-nav-btn:focus:not(:active)::after {
+    animation: ripple 1s ease-out;
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0, 0);
+        opacity: 0.5;
+    }
+    20% {
+        transform: scale(25, 25);
+        opacity: 0.3;
+    }
+    100% {
+        transform: scale(40, 40);
+        opacity: 0;
+    }
+}
+
+.nom-nav-btn.active {
+    background: var(--accent-color);
+    color: black;
+    font-weight: bold;
+    animation: pulseButton 2s infinite;
+}
+
+@keyframes pulseButton {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 85, 0, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(255, 85, 0, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 85, 0, 0);
+    }
+}
+
+/* ========== FOOTER ========== */
+footer {
+    background: #000;
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 16px;
+    position: relative;
+    overflow: hidden;
+    margin-top: 50px;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, #ff5500, #ff8c42);
+}
+
+footer p {
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.social-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.social-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.7s;
+}
+
+.social-icon:hover::before {
+    left: 100%;
+}
+
+.social-icon:hover {
+    background: var(--accent-color);
+    transform: translateY(-3px);
+}
+
+/* ========== КНОПКА "НАВЕРХ" ========== */
+.scroll-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: var(--accent-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-size: 24px;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 85, 0, 0.3);
+}
+
+.scroll-top.visible {
+    opacity: 1;
+    visibility: visible;
+    animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-10px);
+    }
+    60% {
+        transform: translateY(-5px);
+    }
+}
+
+.scroll-top:hover {
+    background: var(--accent-light);
+    transform: translateY(-5px) scale(1.1);
+}
+
+/* ========== АДАПТИВНОСТЬ ========== */
+@media (max-width: 992px) {
+    .nomination-nav {
+        overflow-x: auto;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        padding: 15px;
+    }
+    
+    .nom-nav-btn {
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 42px;
+    }
+    
+    .hero-subtitle {
+        font-size: 18px;
+    }
+    
+    h2 {
+        font-size: 32px;
+    }
+    
+    .participants {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    nav {
+        gap: 15px;
+    }
+    
+    nav a {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero h1 {
+        font-size: 32px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+    
+    .participants {
+        grid-template-columns: 1fr;
+    }
+    
+    .header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px;
+    }
+    
+    .logo {
+        font-size: 24px;
+    }
+    
+    nav {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .nomination-nav {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nom-nav-btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Анимация перехода между страницами -->
+<div class="page-transition" id="pageTransition"></div>
+
+<header>
+    <div class="header">
+        <a href="#" class="logo">SLAVE</a>
+        <nav>
+            <a href="#" class="nav-link active" data-page="main">Главная</a>
+            <a href="#" class="nav-link" data-page="nominations">Номинации</a>
+        </nav>
+    </div>
+</header>
+
+<!-- ГЛАВНАЯ СТРАНИЦА -->
+<section id="main" class="nomination-page active">
+    <div class="hero">
+        <div class="hero-content">
+            <h1>SLAVE 2025</h1>
+            <div class="hero-subtitle">Премия легендарных достижений</div>
+            <p>SLAVE - ежегодная премия, на которой собираются легенды для чествования выдающихся достижений. Аудитория выбирает лучших, которые получат статуэтку в формате масштабного шоу. Премия, выбирающая лучших из лучших!</p>
+            <a href="#" class="cta-button nav-link" data-page="nominations">Смотреть номинации</a>
+        </div>
+    </div>
+</section>
+
+<!-- СТРАНИЦА СО ВСЕМИ НОМИНАЦИЯМИ -->
+<section id="nominations" class="nomination-page">
+    <div class="container">
+        <h2>Номинации</h2>
+        
+        <!-- Навигация по номинациям -->
+        <div class="nomination-nav">
+            <button class="nom-nav-btn active" data-nomination="nomination1">Харизма года</button>
+            <button class="nom-nav-btn" data-nomination="nomination2">ЖирКинг</button>
+            <button class="nom-nav-btn" data-nomination="nomination3">Аут года</button>
+            <button class="nom-nav-btn" data-nomination="nomination4">Стиль года</button>
+            <button class="nom-nav-btn" data-nomination="nomination5">КлешРояль года</button>
+            <button class="nom-nav-btn" data-nomination="nomination6">ЭнергоКинг года</button>
+            <button class="nom-nav-btn" data-nomination="nomination7">Пара года</button>
+            <button class="nom-nav-btn" data-nomination="nomination8">Дуо года</button>
+            <button class="nom-nav-btn" data-nomination="nomination9">SlaveKing</button>
+            <button class="nom-nav-btn" data-nomination="nomination10">SlaveQueen</button>
+        </div>
+        
+        <!-- Контейнер для отображения номинаций -->
+        <div id="nomination-container">
+            <!-- Номинации будут загружаться динамически -->
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <p>SLAVE 2025 © Все права защищены</p>
+        <p>Голосуйте за участников в нашем Telegram-канале!</p>
+        <div class="social-links">
+            <a href="https://t.me/+HywuxGjGHCE2NDVi" target="_blank" class="social-icon">📱</a>
+            <a href="https://t.me/+HywuxGjGHCE2NDVi" target="_blank" class="social-icon">✈️</a>
+            <a href="https://t.me/+HywuxGjGHCE2NDVi" target="_blank" class="social-icon">📢</a>
+            <a href="https://t.me/+HywuxGjGHCE2NDVi" target="_blank" class="social-icon">💬</a>
+        </div>
+        <p style="margin-top: 20px; font-size: 14px; opacity: 0.6;">
+            Присоединяйтесь к нашему Telegram. Голосуйте за участников в каждой номинации!
+        </p>
+    </div>
+</footer>
+
+<a href="#" class="scroll-top">↑</a>
+
+<script>
+// ========== ДАННЫЕ НОМИНАЦИЙ С ЛОКАЛЬНЫМИ ИЗОБРАЖЕНИЯМИ ==========
+const nominationsData = {
+    nomination1: {
+        title: "Харизма года",
+        participants: [
+            { name: "Федос", img: "fedo.jpg" },
+            { name: "Никитос", img: "niki.jpg" },
+            { name: "Саня", img: "sasa.jpg" },
+            { name: "Темон", img: "tema.jpg" }
+        ]
+    },
+    nomination2: {
+        title: "ЖирКинг",
+        participants: [
+            { name: "Крейсер Аврора", img: "avror.jpeg" },
+            { name: "НикитосЖир", img: "mass.jpg" },
+            { name: "Куплинов", img: "kupl.webp" }
+        ]
+    },
+    nomination3: {
+        title: "Аут года",
+        participants: [
+            { name: "Федос", img: "fedo.jpg" },
+            { name: "Тимур", img: "timur.jpg" },
+            { name: "Санек", img: "sasa.jpg" },
+            { name: "Максон", img: "max.jpg" },
+            { name: "Никитос", img: "nikit.jpg" }
+        ]
+    },
+    nomination4: {
+        title: "Стиль года",
+        participants: [
+            { name: "Темон", img: "tema.jpg" },
+            { name: "Никитос", img: "niki.jpg" },
+            { name: "Саня", img: "sasa.jpg" },
+            { name: "Тимур", img: "timur.jpg" },
+            { name: "Андрюха", img: "andr.jpg" }
+        ]
+    },
+    nomination5: {
+        title: "КлешРояль года",
+        participants: [
+            { name: "Санек", img: "sasa.jpg" },
+            { name: "Никитос", img: "nikit.jpg" },
+            { name: "Темон", img: "tema.jpg" }
+        ]
+    },
+    nomination6: {
+        title: "ЭнергоКинг года",
+        participants: [
+            { name: "Федос", img: "fedo.jpg" },
+            { name: "Никитос", img: "niki.jpg" },
+            { name: "Саня", img: "sasa.jpg" }
+        ]
+    },
+    nomination7: {
+        title: "Пара года",
+        participants: [
+            { name: "Санек и Маша", img: "sm.jpg" },
+            { name: "Тимур и Полина", img: "tp.jpg" },
+            { name: "Андрюха и Лиза", img: "al.jpg" }
+        ]
+    },
+    nomination8: {
+        title: "Дуо года",
+        participants: [
+            { name: "Темон и Федос", img: "fedoandtemo.png" },
+            { name: "Санек и Никитос", img: "sanandnikit.png" },
+            { name: "Максон и Андрюха", img: "maxandandr.png" },
+            { name: "Федос и Никита", img: "fedoandnikit.png" },
+            { name: "Санек и Максон", img: "sanandmax.png" }
+        ]
+    },
+    nomination9: {
+        title: "SlaveKing",
+        participants: [
+            { name: "Санек", img: "sasa.jpg" },
+            { name: "Никитос", img: "niki.jpg" },
+            { name: "Федос", img: "fedo.jpg" },
+            { name: "Максон", img: "max.jpg" }
+        ]
+    },
+    nomination10: {
+        title: "SlaveQueen",
+        participants: [
+            { name: "Маша", img: "masha.png" },
+            { name: "Анна Курочкина", img: "anna.png" },
+            { name: "Мама Никиты Казьмина", img: "mam2.png" },
+            { name: "Мама Санька Кунаева", img: "mam1.png" }
+        ]
+    }
+};
+
+// Ссылка на Telegram-канал для голосования
+const TELEGRAM_VOTE_LINK = "https://t.me/+HywuxGjGHCE2NDVi";
+
+// ========== ФУНКЦИИ ДЛЯ РАБОТЫ С НОМИНАЦИЯМИ ==========
+
+// Функция для отображения номинации
+function showNomination(nominationId) {
+    const container = document.getElementById('nomination-container');
+    const nomination = nominationsData[nominationId];
+    
+    if (!nomination) return;
+    
+    // Очищаем контейнер
+    container.innerHTML = '';
+    
+    // Создаем заголовок номинации
+    const titleEl = document.createElement('div');
+    titleEl.className = 'nomination-title';
+    titleEl.textContent = nomination.title;
+    container.appendChild(titleEl);
+    
+    // Создаем сетку участников
+    const participantsGrid = document.createElement('div');
+    participantsGrid.className = 'participants';
+    
+    // Добавляем карточки участников
+    nomination.participants.forEach((participant) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        // Создаем контейнер для изображения
+        const imageContainer = document.createElement('div');
+        imageContainer.className = 'card-image-container';
+        
+        // Создаем элемент изображения
+        const imgElement = document.createElement('img');
+        imgElement.alt = participant.name;
+        imgElement.src = participant.img;
+        imgElement.onerror = function() {
+            this.src = 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=774&q=80';
+            this.style.opacity = '0.7';
+        };
+        
+        // Добавляем изображение в контейнер
+        imageContainer.appendChild(imgElement);
+        
+        // Создаем контейнер для контента карточки
+        const contentContainer = document.createElement('div');
+        contentContainer.className = 'card-content';
+        
+        // Создаем заголовок
+        const nameElement = document.createElement('h3');
+        nameElement.textContent = participant.name;
+        
+        // Создаем кнопку голосования в Telegram
+        const voteButton = document.createElement('a');
+        voteButton.href = TELEGRAM_VOTE_LINK;
+        voteButton.target = '_blank';
+        voteButton.className = 'vote-telegram-btn';
+        voteButton.innerHTML = `
+            <span class="tg-icon">✈️</span>
+            <span>Голосуйте здесь</span>
+        `;
+        
+        // Добавляем заголовок и кнопку в контейнер контента
+        contentContainer.appendChild(nameElement);
+        contentContainer.appendChild(voteButton);
+        
+        // Собираем карточку
+        card.appendChild(imageContainer);
+        card.appendChild(contentContainer);
+        
+        // Добавляем карточку в сетку
+        participantsGrid.appendChild(card);
+    });
+    
+    // Добавляем сетку в контейнер
+    container.appendChild(participantsGrid);
+}
+
+// Функция для переключения активной кнопки навигации
+function setActiveNavButton(nominationId) {
+    // Убираем активный класс у всех кнопок
+    document.querySelectorAll('.nom-nav-btn').forEach(btn => {
+        btn.classList.remove('active');
+    });
+    
+    // Добавляем активный класс к нужной кнопке
+    const activeBtn = document.querySelector(`[data-nomination="${nominationId}"]`);
+    if (activeBtn) {
+        activeBtn.classList.add('active');
+    }
+}
+
+// ========== АНИМАЦИЯ ПЕРЕХОДА МЕЖДУ СТРАНИЦАМИ ==========
+function pageTransition(toPage) {
+    const transition = document.getElementById('pageTransition');
+    const currentPage = document.querySelector('.nomination-page.active');
+    const targetPage = document.getElementById(toPage);
+    
+    // Определяем направление перехода
+    const isToNominations = toPage === 'nominations';
+    
+    // Настройка анимации
+    transition.classList.toggle('reverse', !isToNominations);
+    
+    // Запускаем анимацию перехода
+    transition.classList.add('active');
+    
+    // После завершения анимации перехода
+    setTimeout(() => {
+        // Скрываем текущую страницу
+        if (currentPage) {
+            currentPage.classList.remove('active');
+        }
+        
+        // Показываем целевую страницу
+        if (targetPage) {
+            targetPage.classList.add('active');
+        }
+        
+        // Если переходим на страницу номинаций, показываем первую номинацию
+        if (toPage === 'nominations') {
+            showNomination('nomination1');
+            setActiveNavButton('nomination1');
+        }
+        
+        // Обновляем активные ссылки в навигации
+        document.querySelectorAll('.nav-link').forEach(navLink => {
+            navLink.classList.remove('active');
+        });
+        const activeLink = document.querySelector(`[data-page="${toPage}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
+        }
+        
+        // Плавная прокрутка к началу страницы
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+        
+        // Завершаем анимацию перехода
+        setTimeout(() => {
+            transition.classList.remove('active');
+        }, 300);
+    }, 600);
+}
+
+// ========== ИНИЦИАЛИЗАЦИЯ ==========
+document.addEventListener('DOMContentLoaded', function() {
+    // Показываем первую номинацию по умолчанию
+    showNomination('nomination1');
+    
+    // Обработчики для кнопок навигации по номинациям
+    document.querySelectorAll('.nom-nav-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const nominationId = this.getAttribute('data-nomination');
+            showNomination(nominationId);
+            setActiveNavButton(nominationId);
+            
+            // Анимация клика на кнопке
+            this.style.animation = 'none';
+            setTimeout(() => {
+                this.style.animation = '';
+            }, 10);
+        });
+    });
+    
+    // Обработчики для навигации по страницам с анимацией перехода
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const pageId = this.getAttribute('data-page');
+            const currentPage = document.querySelector('.nav-link.active');
+            const currentPageId = currentPage ? currentPage.getAttribute('data-page') : 'main';
+            
+            // Если мы уже на этой странице, ничего не делаем
+            if (pageId === currentPageId) return;
+            
+            // Запускаем анимацию перехода
+            pageTransition(pageId);
+        });
+    });
+    
+    // ========== КНОПКА "НАВЕРХ" ==========
+    const scrollTopBtn = document.querySelector('.scroll-top');
+    
+    window.addEventListener('scroll', function() {
+        if (window.scrollY > 300) {
+            scrollTopBtn.classList.add('visible');
+        } else {
+            scrollTopBtn.classList.remove('visible');
+        }
+    });
+    
+    scrollTopBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+});
+</script>
+</body>
+</html>
